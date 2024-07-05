@@ -1,0 +1,32 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    
+    <changeSet author="n.korneev" id="create-game-table">
+        <createTable tableName="game">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="game_pkey"/>
+            </column>
+            
+            <column name="first_player_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            
+            <column name="second_player_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="n.korneev" id="create-foreign-keys">
+        <addForeignKeyConstraint baseColumnNames="first_player_id" baseTableName="game" constraintName="first_player_id_fk" referencedColumnNames="id" referencedTableName="player" />
+        <addForeignKeyConstraint baseColumnNames="second_player_id" baseTableName="game" constraintName="second_player_id_fk" referencedColumnNames="id" referencedTableName="player" />
+    </changeSet>
+    
+</databaseChangeLog>
